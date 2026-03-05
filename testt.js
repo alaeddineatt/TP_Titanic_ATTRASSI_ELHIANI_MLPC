@@ -32,6 +32,9 @@ Action()
             "Resource=0",
             LAST);
 
+        // Vérification extraction
+        lr_output_message("Valeur extraite = [%s]", lr_eval_string("{total_auth_ppl}"));
+
         // Conversion en long
         valeur = atol(lr_eval_string("{total_auth_ppl}"));
 
@@ -42,10 +45,11 @@ Action()
         // Comparaison si ce n'est pas la première valeur
         if (index_auth > 0)
         {
-            delta = tab_auth[index_auth] - tab_auth[index_auth - 1];
+            long prev = tab_auth[index_auth - 1];
+            delta = valeur - prev;
 
-            lr_output_message("Delta entre iteration %d et %d = %ld",
-                              index_auth - 1, index_auth, delta);
+            lr_output_message("Valeur précédente = %ld", prev);
+            lr_output_message("Delta = %ld", delta);
 
             // ===============================
             // GESTION DE TOUS LES CAS
