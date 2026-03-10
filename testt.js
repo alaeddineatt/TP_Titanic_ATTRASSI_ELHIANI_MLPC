@@ -20,6 +20,11 @@ Action()
     {
         lr_output_message("---- Iteration %d ----", i + 1);
 
+        // ===============================
+        // Début de transaction
+        // ===============================
+        lr_start_transaction("Check_total_auth_ppl");
+
         // Extraction
         web_reg_save_param_ex(
             "ParamName=total_auth_ppl",
@@ -38,11 +43,13 @@ Action()
         // Conversion en long
         valeur = atol(lr_eval_string("{total_auth_ppl}"));
 
-        // Stockage
+        // Stockage dans le tableau
         tab_auth[index_auth] = valeur;
         lr_output_message("Stockage : tab_auth[%d] = %ld", index_auth, valeur);
 
+        // ===============================
         // Comparaison si ce n'est pas la première valeur
+        // ===============================
         if (index_auth > 0)
         {
             long prev = tab_auth[index_auth - 1];
@@ -60,6 +67,12 @@ Action()
             {
                 lr_error_message("⚠️ ALERTE : variation anormale détectée ! Delta = %ld (> %ld)",
                                  delta, seuil_delta);
+                lr_end_transaction("Check_total_auth_ppl", LR_FAIL);
+            }
+            else
+            {
+                lr_output_message("Variation normale (delta = %ld)", delta);
+                lr_end_transaction("Check_total_auth_ppl", LR_PASS);
             }
 
             // 2. Cas delta positif (hausse)
@@ -90,6 +103,12 @@ Action()
                 lr_output_message("Aucune variation détectée (delta = 0)");
             }
         }
+        else
+        {
+            // Première valeur → pas de delta
+            lr_output_message("Première valeur, pas de delta à calculer.");
+            lr_end_transaction("Check_total_auth_ppl", LR_PASS);
+        }
 
         index_auth++;
 
@@ -98,7 +117,9 @@ Action()
         lr_think_time(600);
     }
 
+    // ===============================
     // Affichage final du tableau
+    // ===============================
     lr_output_message("=== Valeurs stockées ===");
     for (i = 0; i < index_auth; i++) {
         lr_output_message("tab_auth[%d] = %ld", i, tab_auth[i]);
