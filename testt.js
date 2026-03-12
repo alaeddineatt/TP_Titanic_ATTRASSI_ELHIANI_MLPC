@@ -112,6 +112,13 @@ Action()
 
         index_auth++;
 
+        
+        // ===============================
+        // Temps d'exécution réel
+        // ===============================
+        double exec_time = lr_get_transaction_duration("PUMA_CHECK");
+        lr_output_message("Temps d'exécution de PUMA_CHECK = %.2f sec", exec_time);
+
         // Pause de 10 minutes
         lr_output_message("Pause de 10 minutes...");
         lr_think_time(600);
