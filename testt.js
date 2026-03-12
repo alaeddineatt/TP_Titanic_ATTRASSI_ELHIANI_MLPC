@@ -6,6 +6,14 @@ int index_auth = 0;
 long seuil_delta = 50;
 
 
+char *duration_str = lr_eval_string("{PUMA_CHECK_duration}");
+
+// Convert to double
+double exec_time = atof(duration_str);
+
+lr_output_message("Execution time = %.3f sec", exec_time);
+
+
 // ===============================
 // Action()
 // ===============================
