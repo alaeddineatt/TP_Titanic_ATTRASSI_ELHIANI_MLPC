@@ -46,3 +46,13 @@
             response_times[i]
         );
     }
+Salut,
+Je viens de déployer le nouveau script de supervision dans apptest.
+
+Il inclut maintenant :
+
+le contrôle du nombre d’utilisateurs connectés (GitLab) avec un delta % clair entre chaque itération
+
+un alerting immédiat sur le temps d’exécution : au‑delà de 60 s c’est déjà non conforme, et au‑delà de 120 s c’est critique
+
+un calcul d’attente dynamique basé sur 60 - temps d’exécution pour garder un rythme d’itération constant
