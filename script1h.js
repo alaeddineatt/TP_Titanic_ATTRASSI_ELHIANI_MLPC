@@ -47,12 +47,8 @@
         );
     }
 Salut,
-Je viens de déployer le nouveau script de supervision dans apptest.
+Je viens de déployer un nouveau script dans APPTEST.
+J’ai mis en place un alerting immédiat sur le temps d’exécution : au‑delà de 60 s c’est déjà non conforme, et au‑delà de 120 s c’est critique.
+J’ai aussi ajouté un calcul d’attente dynamique basé sur 60 – temps d’exécution pour garder un rythme stable entre les itérations.
 
-Il inclut maintenant :
-
-le contrôle du nombre d’utilisateurs connectés (GitLab) avec un delta % clair entre chaque itération
-
-un alerting immédiat sur le temps d’exécution : au‑delà de 60 s c’est déjà non conforme, et au‑delà de 120 s c’est critique
-
-un calcul d’attente dynamique basé sur 60 - temps d’exécution pour garder un rythme d’itération constant
+J’ai essayé de poser les premiers éléments de contrôle, mais si tu veux on peut regarder ça ensemble pour définir et intégrer les SLA directement dans ISaPP.
