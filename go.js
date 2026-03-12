@@ -3,35 +3,35 @@
 // ======================================================
 
 // Tableau pour stocker les valeurs extraites
-double auth_values[100];
+long double auth_values[100];
 
 // Tableau pour stocker les temps de réponse
-double response_times[100];
+long double response_times[100];
 
 // Compteur d'itérations
 int auth_index = 0;
 
 // Valeur extraite
-double current_value;
+long double current_value;
 
 // Delta en pourcentage
-double delta_pct;
+long double delta_pct;
 
 // Temps de réponse
-double exec_time;      // durée de la transaction principale
-double wasted_time;    // wasted time
-double wait_time;      // attente dynamique
+long double exec_time;      // durée de la transaction principale
+long double wasted_time;    // wasted time
+long double wait_time;      // attente dynamique
 
 // Seuils
-double seuil_normal  = 60.0;
-double seuil_critique = 120.0;
+long double seuil_normal   = 60.0L;
+long double seuil_critique = 120.0L;
 
 // Status
 int status_main;
 int status_resp;
 
 // Somme des temps de réponse
-double total_response_time = 0.0;
+long double total_response_time = 0.0L;
 
 
 // ======================================================
@@ -64,28 +64,32 @@ Action()
             "Resource=0",
             LAST);
 
-        // Conversion
-        current_value = atof(lr_eval_string("{total_auth_ppl}"));
-        lr_output_message("Valeur extraite = %.3f", current_value);
+        // Conversion haute précision
+        current_value = strtold(lr_eval_string("{total_auth_ppl}"), NULL);
+        lr_output_message("Valeur extraite = %.3Lf", current_value);
 
-        // Calcul du delta %
-        if (auth_index > 0)
+        // ------------------------------------------------------
+        // CALCUL DU DELTA EN POURCENTAGE (VERSION PROPRE)
+        // ------------------------------------------------------
+        if (auth_index == 0)
         {
-            double previous = auth_values[auth_index - 1];
-
-            if (previous != 0)
-            {
-                delta_pct = ((current_value - previous) / previous) * 100.0;
-                lr_output_message("Delta en pourcentage = %.2f %%", delta_pct);
-            }
-            else
-            {
-                lr_output_message("Delta impossible : valeur précédente = 0");
-            }
+            delta_pct = 0.0L;
+            lr_output_message("Delta = %.2Lf %% (initialisation)", delta_pct);
         }
         else
         {
-            lr_output_message("Première itération : pas de delta");
+            long double previous = auth_values[auth_index - 1];
+
+            if (previous != 0.0L)
+            {
+                delta_pct = ((current_value - previous) / previous) * 100.0L;
+                lr_output_message("Delta en pourcentage = %.2Lf %%", delta_pct);
+            }
+            else
+            {
+                delta_pct = 0.0L;
+                lr_output_message("Delta impossible (previous=0), delta fixé à 0 %%");
+            }
         }
 
         // Stockage de la valeur
@@ -96,13 +100,13 @@ Action()
 
 
         // ------------------------------------------------------
-        // RÉCUPÉRATION DES TEMPS
+        // RÉCUPÉRATION DES TEMPS (CAST EN long double)
         // ------------------------------------------------------
-        exec_time   = lr_get_transaction_duration("PUMA_CHECK");
-        wasted_time = lr_get_transaction_wasted_time("PUMA_CHECK");
+        exec_time   = (long double) lr_get_transaction_duration("PUMA_CHECK");
+        wasted_time = (long double) lr_get_transaction_wasted_time("PUMA_CHECK");
 
-        lr_output_message("Execution time = %.3f sec", exec_time);
-        lr_output_message("Wasted time    = %.3f sec", wasted_time);
+        lr_output_message("Execution time = %.3Lf sec", exec_time);
+        lr_output_message("Wasted time    = %.3Lf sec", wasted_time);
 
         // Stockage du temps de réponse
         response_times[auth_index] = exec_time;
@@ -114,13 +118,13 @@ Action()
         // ------------------------------------------------------
         // ATTENTE DYNAMIQUE
         // ------------------------------------------------------
-        wait_time = 60.0 - exec_time;
-        if (wait_time < 0)
-            wait_time = 0;
+        wait_time = 60.0L - exec_time;
+        if (wait_time < 0.0L)
+            wait_time = 0.0L;
 
-        lr_output_message("Attente dynamique = %.3f sec", wait_time);
+        lr_output_message("Attente dynamique = %.3Lf sec", wait_time);
 
-        lr_think_time(wait_time);
+        lr_think_time((double)wait_time);
 
         // Incrément de l'index
         auth_index++;
@@ -131,21 +135,21 @@ Action()
     // ------------------------------------------------------
     lr_start_transaction("PUMA_TOTAL_RESPONSE_ALERT");
 
-    lr_output_message("Somme totale des temps de réponse = %.3f sec", total_response_time);
+    lr_output_message("Somme totale des temps de réponse = %.3Lf sec", total_response_time);
 
     if (total_response_time > seuil_critique)
     {
-        lr_error_message("ALERTE CRITIQUE : somme des temps = %.2f sec", total_response_time);
+        lr_error_message("ALERTE CRITIQUE : somme des temps = %.2Lf sec", total_response_time);
         status_resp = LR_FAIL;
     }
     else if (total_response_time > seuil_normal)
     {
-        lr_output_message("Temps total NORMAL : %.2f sec", total_response_time);
+        lr_output_message("Temps total NORMAL : %.2Lf sec", total_response_time);
         status_resp = LR_PASS;
     }
     else
     {
-        lr_output_message("Temps total OK : %.2f sec", total_response_time);
+        lr_output_message("Temps total OK : %.2Lf sec", total_response_time);
         status_resp = LR_PASS;
     }
 
@@ -159,7 +163,7 @@ Action()
 
     for (i = 0; i < auth_index; i++)
     {
-        lr_output_message("Itération %d : valeur = %.3f | temps réponse = %.3f sec",
+        lr_output_message("Itération %d : valeur = %.3Lf | temps réponse = %.3Lf sec",
             i + 1,
             auth_values[i],
             response_times[i]
