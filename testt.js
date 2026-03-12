@@ -7,23 +7,24 @@ long seuil_delta = 50;
 
 
 
-    exec_time = lr_get_transaction_duration("PUMA_CHECK");
-    wasted_time = lr_get_transaction_wasted_time("PUMA_CHECK");
+if (p1 >= 50 || p2 >= 50 || p3 >= 50 || p4 >= 50) {
+        lr_error_message("Une valeur PUMA dépasse 50 !");
+        lr_end_transaction("TR_PUMA", LR_FAIL);
+        return 0;
+    }
 
-    lr_output_message("Execution time = %.3f sec", exec_time);
-    lr_output_message("Wasted time    = %.3f sec", wasted_time);
+    if (totale >= 200) {
+        lr_error_message("La somme des PUMA dépasse 200 !");
+        lr_end_transaction("TR_PUMA", LR_FAIL);
+        return 0;
+    }
 
+    // Fin de transaction OK
+    lr_end_transaction("TR_PUMA", LR_PASS);
 
-char *duration_str = lr_eval_string("{PUMA_CHECK_duration}");
-
-// Convert to double
-double exec_time = atof(duration_str);
-
-lr_output_message("Execution time = %.3f sec", exec_time);
-
-
-exec_time = atof(lr_eval_string("{PUMA_CHECK_duration}"));
-
+    // Récupération de la durée
+    duration = lr_get_transaction_duration("TR_PUMA");
+    lr_output_message("Durée de la transaction TR_PUMA = %f secondes", duration);
 
 // ===============================
 // Action()
