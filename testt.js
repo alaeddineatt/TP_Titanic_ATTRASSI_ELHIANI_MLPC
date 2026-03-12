@@ -14,6 +14,9 @@ double exec_time = atof(duration_str);
 lr_output_message("Execution time = %.3f sec", exec_time);
 
 
+exec_time = atof(lr_eval_string("{PUMA_CHECK_duration}"));
+
+
 // ===============================
 // Action()
 // ===============================
