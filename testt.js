@@ -6,6 +6,14 @@ int index_auth = 0;
 long seuil_delta = 50;
 
 
+
+    exec_time = lr_get_transaction_duration("PUMA_CHECK");
+    wasted_time = lr_get_transaction_wasted_time("PUMA_CHECK");
+
+    lr_output_message("Execution time = %.3f sec", exec_time);
+    lr_output_message("Wasted time    = %.3f sec", wasted_time);
+
+
 char *duration_str = lr_eval_string("{PUMA_CHECK_duration}");
 
 // Convert to double
