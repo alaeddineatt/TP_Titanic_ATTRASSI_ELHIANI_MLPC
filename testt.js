@@ -5,6 +5,9 @@ long tab_auth[100];
 int index_auth = 0;
 long seuil_delta = 50;
 
+Error		Error: An exception was raised while calling invocation function in interpreter extension cciext.dll: System Exceptions: EXCEPTION_ACCESS_VIOLATION.	 	 	Test_Impl_Metrics_with_GitLab__Monitoring
+
+
 
 
 if (p1 >= 50 || p2 >= 50 || p3 >= 50 || p4 >= 50) {
