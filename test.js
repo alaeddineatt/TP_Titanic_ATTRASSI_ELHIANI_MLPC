@@ -1,21 +1,20 @@
-Valeur nominale	Représentation conseillée
-Varie selon l'usage	Jauge temporelle
-Compteur croissant	Taux (rate())
-0 (Alerte si > 0)	Jauge temporelle
-Selon topologie	Jauge temporelle
-0 (Alerte si > 0)	Jauge temporelle
-Compteur croissant	Taux (rate())
-0 ou très faible	Taux (rate())
-Compteur croissant	Taux (rate())
-Compteur croissant	Taux (rate())
-0 (Alerte si > 0)	Taux (rate())
-Compteur croissant	Taux (rate())
-Compteur croissant	Taux (rate())
-Varie selon la charge	Jauge temporelle
-0 (Alerte si > 0)	Jauge temporelle
-Compteur croissant	Taux (rate())
-Varie selon l'usage	Jauge temporelle
-
+Description fonctionnelle	Valeur nominale	Représentation conseillée
+Connexions WebSockets ouvertes	Varie selon l'usage	Jauge temporelle
+Volume des notifications diffusées	Compteur croissant	Taux (rate())
+Notifications en attente d'envoi	0 (Alerte si > 0)	Jauge temporelle
+Réplicas de base de données disponibles	Selon topologie	Jauge temporelle
+Requêtes en attente de connexion DB	0 (Alerte si > 0)	Jauge temporelle
+Volume d'appels au stockage Git	Compteur croissant	Taux (rate())
+Requêtes bloquées (Rate Limiting)	0 ou très faible	Taux (rate())
+Authentifications réussies	Compteur croissant	Taux (rate())
+Requêtes absentes du cache Redis	Compteur croissant	Taux (rate())
+Erreurs de connexion Redis	0 (Alerte si > 0)	Taux (rate())
+Volume d'exécution de requêtes SQL	Compteur croissant	Taux (rate())
+Volume global de requêtes Web HTTP	Compteur croissant	Taux (rate())
+Processus Web de traitement occupés	Varie selon la charge	Jauge temporelle
+Requêtes HTTP en file d'attente	0 (Alerte si > 0)	Jauge temporelle
+Temps d'exécution du Garbage Collector	Compteur croissant	Taux (rate())
+Mémoire vive (RAM) consommée	Varie selon l'usage	Jauge temporelle
 
 
 
