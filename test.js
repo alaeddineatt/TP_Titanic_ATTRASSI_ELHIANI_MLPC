@@ -1,22 +1,3 @@
-Description fonctionnelle	Valeur nominale	Représentation conseillée
-Connexions WebSockets ouvertes	Varie selon l'usage	Jauge temporelle
-Volume des notifications diffusées	Compteur croissant	Taux (rate())
-Notifications en attente d'envoi	0 (Alerte si > 0)	Jauge temporelle
-Réplicas de base de données disponibles	Selon topologie	Jauge temporelle
-Requêtes en attente de connexion DB	0 (Alerte si > 0)	Jauge temporelle
-Volume d'appels au stockage Git	Compteur croissant	Taux (rate())
-Requêtes bloquées (Rate Limiting)	0 ou très faible	Taux (rate())
-Authentifications réussies	Compteur croissant	Taux (rate())
-Requêtes absentes du cache Redis	Compteur croissant	Taux (rate())
-Erreurs de connexion Redis	0 (Alerte si > 0)	Taux (rate())
-Volume d'exécution de requêtes SQL	Compteur croissant	Taux (rate())
-Volume global de requêtes Web HTTP	Compteur croissant	Taux (rate())
-Processus Web de traitement occupés	Varie selon la charge	Jauge temporelle
-Requêtes HTTP en file d'attente	0 (Alerte si > 0)	Jauge temporelle
-Temps d'exécution du Garbage Collector	Compteur croissant	Taux (rate())
-Mémoire vive (RAM) consommée	Varie selon l'usage	Jauge temporelle
-
-
 
 /* Fonction générique de traitement d'un groupe déjà capturé */
 void process_metric_group(char *metricName,
