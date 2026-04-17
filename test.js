@@ -1,3 +1,24 @@
+Valeur nominale	Représentation conseillée
+Varie selon l'usage	Jauge temporelle
+Compteur croissant	Taux (rate())
+0 (Alerte si > 0)	Jauge temporelle
+Selon topologie	Jauge temporelle
+0 (Alerte si > 0)	Jauge temporelle
+Compteur croissant	Taux (rate())
+0 ou très faible	Taux (rate())
+Compteur croissant	Taux (rate())
+Compteur croissant	Taux (rate())
+0 (Alerte si > 0)	Taux (rate())
+Compteur croissant	Taux (rate())
+Compteur croissant	Taux (rate())
+Varie selon la charge	Jauge temporelle
+0 (Alerte si > 0)	Jauge temporelle
+Compteur croissant	Taux (rate())
+Varie selon l'usage	Jauge temporelle
+
+
+
+
 /* Fonction générique de traitement d'un groupe déjà capturé */
 void process_metric_group(char *metricName,
                           char *paramKeys,
