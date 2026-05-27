@@ -1,2 +1,1 @@
 0
-/itom-data-ingestion-store/urest/v2/dataSet/${EXTRACTED_DATASET}?filter=txn_name+eq+${TRANS_NAME.TRANS_NAME}&filter=application_name+eq+${APP_NAME.APP_NAME}&filter=location_name+eq+${LOC_NAME.LOC_NAME}&filter=timestamp_utc_s+gt+${FROM_EPOCH}&filter=timestamp_utc_s+lt+${TO_EPOCH}&fields=timestamp_utc_s,application_name,location_name,txn_name,status_id,txn_availability_status,txn_response_time_ms&start=1
